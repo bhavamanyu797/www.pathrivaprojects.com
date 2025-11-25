@@ -1,337 +1,160 @@
-document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs only after the entire HTML structure is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ===========================================
+    // 1. SCROLL FIX: Ensure the page starts at the top
+    // ===========================================
 
-    // --- Core Element Selections ---
-    const navbar = document.querySelector('.navbar');
-    const sections = document.querySelectorAll('section');
-    const homeText = document.querySelector('#home .text');
-    const typewriterElement = document.getElementById('typewriter-text');
+    // Check if the URL has a hash (fragment identifier like #contact)
+    if (window.location.hash) {
+        // Remove the hash from the URL without triggering a full page reload or scroll jump
+        history.replaceState(null, null, ' ');
+    }
 
-    // Mobile Menu elements
-    const menuToggle = document.querySelector('.navbar-toggle');
-    const navMenu = document.querySelector('.navbar-menu');
+    // Explicitly set the scroll position to the top immediately upon loading
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant' 
+    });
+
+
+    // ===========================================
+    // 2. NAVBAR TOGGLE: For Mobile Menu Functionality
+    // ===========================================
+    const navbarToggle = document.querySelector('.navbar-toggle');
+    const navbarMenu = document.querySelector('.navbar-menu');
     const navLinks = document.querySelectorAll('.navbar-menu a');
 
-    // Carousel elements
+    navbarToggle.addEventListener('click', function() {
+        navbarMenu.classList.toggle('active');
+        navbarToggle.setAttribute('aria-expanded', navbarMenu.classList.contains('active'));
+    });
+
+    // Close menu when a link is clicked (useful for single-page navigation)
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navbarMenu.classList.contains('active')) {
+                navbarMenu.classList.remove('active');
+                navbarToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+
+    // ===========================================
+    // 3. CAROUSEL/GALLERY LOGIC
+    // ===========================================
     const carousel = document.querySelector('.carousel');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
-    const dotContainer = document.querySelector('.carousel-pagination');
+    const cards = document.querySelectorAll('.hicard');
+    
+    // Define how many cards should be visible at once (adjust based on CSS)
+    const cardsPerView = 3; 
+    let currentIndex = 0;
 
-    // --- 1. Initial Home Text Load Animation ---
-    if (homeText) { 
-        setTimeout(() => { 
-            homeText.classList.add('loaded'); 
-        }, 100);
+    function updateCarousel() {
+        // Calculate the translation distance: card width * current index
+        // We use scrollLeft for smooth scrolling instead of transform
+        const cardWidth = cards[0].offsetWidth; // Get the width of one card
+        const scrollDistance = currentIndex * cardWidth;
+        
+        carousel.scrollTo({
+            left: scrollDistance,
+            behavior: 'smooth'
+        });
+
+        // Update button visibility (optional but good for UX)
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= (cards.length - cardsPerView);
     }
 
-    // --- 2. Mobile Menu Toggle Logic & Staggered Links ---
-    menuToggle.addEventListener('click', () => { 
-        const isMenuOpen = navMenu.classList.toggle('active'); 
-        menuToggle.classList.toggle('active'); 
-
-        if (isMenuOpen) { 
-            document.querySelectorAll('.navbar-menu li').forEach((link, index) => { 
-                link.style.transitionDelay = `${index * 0.1}s`; 
-            });
-        } else { 
-            document.querySelectorAll('.navbar-menu li').forEach(link => { 
-                link.style.transitionDelay = '0s'; 
-            });
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
         }
     });
 
-    // Close menu when a link is clicked
-    navLinks.forEach(link => { 
-        link.addEventListener('click', () => { 
-            if (navMenu.classList.contains('active')) { 
-                navMenu.classList.remove('active'); 
-                menuToggle.classList.remove('active'); 
-            }
-        });
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < (cards.length - cardsPerView)) {
+            currentIndex++;
+            updateCarousel();
+        }
     });
 
-    // --- 3. Scroll Event Handler (Scroll Spy, Navbar Shadow, Scroll-to-Top Button) ---
-    const handleScrollEvents = () => { 
-        // A. Scroll Spy Logic
-        let current = ''; 
-        sections.forEach(section => { 
-            const sectionTop = section.offsetTop - (navbar ? navbar.offsetHeight : 80); 
-            if (window.scrollY >= sectionTop) { 
-                current = section.getAttribute('id'); 
-            }
-        });
+    // Initial update when the page loads
+    updateCarousel(); 
+    
+    // Recalculate on window resize
+    window.addEventListener('resize', updateCarousel);
 
-        navLinks.forEach(a => { 
-            a.classList.remove('active'); 
-            if (a.getAttribute('href') && a.getAttribute('href').substring(1) === current) { 
-                a.classList.add('active'); 
-            }
-        });
 
-        // B. Navbar Scroll Shadow/Blur Logic
-        if (window.scrollY > 50) { 
-            navbar && navbar.classList.add('scrolled'); 
-        } else {
-            navbar && navbar.classList.remove('scrolled'); 
-        }
+    // ===========================================
+    // 4. TYPEWRITER EFFECT LOGIC (from your HTML)
+    // ===========================================
+    const values = [
+        "Quality, Safety, and Speed.", 
+        "Innovation and Technical Excellence.", 
+        "Integrity and Transparency.",
+        "Commitment to Sustainability."
+    ];
+    let valueIndex = 0;
+    let charIndex = 0;
+    const typewriterElement = document.getElementById('typewriter-text');
+    const typingSpeed = 70;
+    const erasingSpeed = 40;
+    const delay = 1500;
 
-        // C. Scroll-to-Top Button Visibility
-        const scrollTopBtn = document.querySelector('.scrolltotop'); 
-        if (scrollTopBtn) { 
-            if (window.scrollY > 300) { 
-                scrollTopBtn.classList.add('visible'); 
+    function type() {
+        if (valueIndex < values.length) {
+            if (charIndex < values[valueIndex].length) {
+                typewriterElement.textContent += values[valueIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingSpeed);
             } else {
-                scrollTopBtn.classList.remove('visible'); 
+                setTimeout(erase, delay);
             }
+        } else {
+            // Loop back to the first value
+            valueIndex = 0;
+            setTimeout(type, typingSpeed);
         }
-    };
-
-    window.addEventListener('scroll', handleScrollEvents); 
-    handleScrollEvents(); 
-
-    // Scroll-to-Top Button Logic
-    document.querySelector('.scrolltotop')?.addEventListener('click', function() { 
-        window.scrollTo({ top: 0, behavior: 'smooth' }); 
-    });
-
-
-    // --- 4. General Scroll Animation Observer ---
-    const generalObserverOptions = { threshold: 0.05 }; 
-
-    const generalObserver = new IntersectionObserver((entries, observer) => { 
-        entries.forEach(entry => { 
-            if (entry.isIntersecting) { 
-                entry.target.classList.add('show'); 
-            }
-        });
-    }, generalObserverOptions);
-
-    document.querySelectorAll( 
-        '.card, .cardo, .leader-card, .service-category, .contact-form, ' +
-        '#services h1, .leadership-section h1, .project-gallery-section h2, .gallery-item'
-    ).forEach(element => {
-        generalObserver.observe(element); 
-    });
-
-    // --- 5. Typewriter Effect Logic (Core Values) ---
-    if (typewriterElement) { 
-        const coreValues = [ 
-            "1.Integrity & Commitment",
-            "2.Safety & Quality",
-            "3.Long-term Partnerships.",
-            "4.Innovation & Continuous Improvement"
-        ];
-        let valueIndex = 0; 
-        const delayBeforeNext = 1500; 
-        const typingSpeed = 100; 
-        const deletingSpeed = 50; 
-        let isTyping = false; 
-        let observerTriggered = false; 
-
-        function typeValue(text, callback) { 
-            let i = 0; 
-            isTyping = true;
-            typewriterElement.classList.remove('blinking'); 
-            const typingInterval = setInterval(() => { 
-                if (i < text.length) { 
-                    typewriterElement.textContent += text.charAt(i); 
-                    i++;
-                } else { 
-                    clearInterval(typingInterval); 
-                    typewriterElement.classList.add('blinking'); 
-                    isTyping = false;
-                    setTimeout(callback, delayBeforeNext); 
-                }
-            }, typingSpeed);
-        }
-
-        function deleteValue(callback) { 
-            let text = typewriterElement.textContent; 
-            isTyping = true;
-            typewriterElement.classList.remove('blinking'); 
-            const deletingInterval = setInterval(() => { 
-                if (text.length > 0) { 
-                    text = text.substring(0, text.length - 1); 
-                    typewriterElement.textContent = text; 
-                } else { 
-                    clearInterval(deletingInterval); 
-                    typewriterElement.classList.add('blinking'); 
-                    isTyping = false;
-                    setTimeout(callback, 500); 
-                }
-            }, deletingSpeed);
-        }
-
-        function startTypewriter() { 
-            if (!isTyping) { 
-                const value = coreValues[valueIndex]; 
-                typeValue(value, () => { 
-                    deleteValue(() => { 
-                        valueIndex = (valueIndex + 1) % coreValues.length; 
-                        startTypewriter(); 
-                    });
-                });
-            }
-        }
-
-        const typewriterObserver = new IntersectionObserver((entries, observer) => { 
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !observerTriggered) { 
-                    observerTriggered = true; 
-                    startTypewriter(); 
-                    observer.unobserve(entry.target); 
-                }
-            });
-        }, { threshold: 0.2 }); 
-
-        const aboutSection = document.getElementById('about'); 
-        aboutSection && typewriterObserver.observe(aboutSection); 
     }
 
-    // ----------------------------------------------------------------------
-    // --- Anchor Smooth Scrolling for Service Cards (Centered View) ---
-    // ----------------------------------------------------------------------
-    document.querySelectorAll('.service-detail-link').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
+    function erase() {
+        if (charIndex > 0) {
+            typewriterElement.textContent = values[valueIndex].substring(0, charIndex - 1);
+            charIndex--;
+            setTimeout(erase, erasingSpeed);
+        } else {
+            valueIndex++;
+            setTimeout(type, typingSpeed + 500); // Slight delay before typing next word
+        }
+    }
 
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
+    // Start the typewriter effect when the DOM is ready
+    type();
 
-            if (targetElement) {
-                // 1. Get the height of the fixed navbar (for top offset)
-                const navHeight = navbar ? navbar.offsetHeight : 0; 
-                
-                // 2. Get the element's top position relative to the document
-                const elementTop = targetElement.offsetTop;
-                
-                // 3. Get the element's height and the viewport's height
-                const elementHeight = targetElement.offsetHeight;
-                const viewportHeight = window.innerHeight;
 
-                // 4. Calculate the desired scroll position for centering:
-                // Scroll position = Element's top position - (Half of viewport height - Half of element height) - Nav Height
-                const scrollToPosition = elementTop - (viewportHeight / 2) + (elementHeight / 2) - navHeight;
+    // ===========================================
+    // 5. SCROLL-TO-TOP BUTTON VISIBILITY
+    // ===========================================
+    const scrolltotop = document.querySelector('.scrolltotop');
 
-                window.scrollTo({
-                    top: scrollToPosition, 
-                    behavior: 'smooth'
-                });
-            }
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrolltotop.style.display = 'flex';
+        } else {
+            scrolltotop.style.display = 'none';
+        }
+    });
+
+    scrolltotop.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
     });
-    // --- End Anchor Smooth Scrolling ---
 
-
-    // ----------------------------------------------------------------------
-    // --- 6. Carousel Functionality (SCROLL-SNAP STABLE VERSION) ---
-    // ----------------------------------------------------------------------
-    if (carousel) { 
-        const allSlides = document.querySelectorAll('.carousel > .hicard'); 
-        const totalItems = allSlides.length;
-        const dots = [];
-
-        if (totalItems === 0) return; 
-
-        // --- DOT CREATION LOGIC ---
-        for (let i = 0; i < totalItems; i++) {
-            const dot = document.createElement('div');
-            dot.classList.add('pagination-dot');
-            const slideIndex = i; 
-
-            dot.addEventListener('click', () => {
-                // Use native scroll to move the carousel smoothly to the corresponding slide
-                allSlides[slideIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            });
-            dotContainer.appendChild(dot);
-            dots.push(dot);
-        }
-
-        // --- CORE NAVIGATION FUNCTIONS ---
-        // Stabilized getCurrentSlideIndex: Finds the slide whose center is closest to the carousel's view center.
-        const getCurrentSlideIndex = () => {
-            const centerLine = carousel.scrollLeft + (carousel.offsetWidth / 2);
-            let closestIndex = 0;
-            let minDistance = Infinity;
-
-            for (let i = 0; i < totalItems; i++) {
-                const slide = allSlides[i];
-                // Calculate the center of the current slide relative to the carousel's start
-                const slideCenter = slide.offsetLeft + (slide.offsetWidth / 2);
-                
-                // Calculate distance from the carousel's visible center to the slide's center
-                const distance = Math.abs(centerLine - slideCenter);
-                
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestIndex = i;
-                }
-            }
-            return closestIndex;
-        };
-        
-        const updateDots = (currentIndex) => {
-            dots.forEach(dot => dot.classList.remove('active'));
-            dots[currentIndex]?.classList.add('active');
-        };
-
-        const handleNavigation = (event, direction) => {
-            event.preventDefault(); // Stop browser default behavior
-
-            let currentIndex = getCurrentSlideIndex(); 
-            let nextIndex = currentIndex;
-            
-            // Determine next index based on direction
-            if (direction === 'next') {
-                nextIndex = (currentIndex + 1) % totalItems;
-            } else if (direction === 'prev') {
-                nextIndex = (currentIndex - 1 + totalItems) % totalItems;
-            }
-
-            // Move the scroll
-            allSlides[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            
-            // Optimistically update the dot immediately (the scroll listener handles the final position)
-            updateDots(nextIndex);
-        };
-
-        // --- EVENT LISTENERS ---
-        prevBtn.addEventListener('click', (e) => {
-            handleNavigation(e, 'prev');
-        });
-
-        nextBtn.addEventListener('click', (e) => {
-            handleNavigation(e, 'next');
-        });
-
-        // --- SYNCHRONIZE DOTS WITH SCROLL ---
-        let isScrolling;
-        carousel.addEventListener('scroll', () => {
-            window.clearTimeout(isScrolling);
-            
-            // Wait briefly for the smooth scroll/snap to complete before updating the index.
-            isScrolling = setTimeout(() => {
-                const visibleIndex = getCurrentSlideIndex();
-                updateDots(visibleIndex);
-            }, 66); 
-        });
-
-        // --- INITIALIZATION ---
-        const initializeCarousel = () => {
-            // Use 'auto' behavior to instantly snap to the first slide on load
-            allSlides[0].scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
-            updateDots(0); 
-        }
-        
-        // Initial setup
-        window.addEventListener('load', initializeCarousel);
-        setTimeout(initializeCarousel, 500); 
-        
-        window.addEventListener('resize', () => {
-            // Re-snap on resize instantly (no smooth)
-            const currentSnapIndex = getCurrentSlideIndex();
-            allSlides[currentSnapIndex].scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
-            updateDots(currentSnapIndex);
-        });
-    }
 });
