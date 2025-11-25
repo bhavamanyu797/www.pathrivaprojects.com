@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathriva Projects - Renewable Energy & Infrastructure EPC</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        // Using 'Poppins' as requested for a modern sans-serif feel
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#0d9488', /* Teal/Cyan for Energy */
+                        'primary-dark': '#0f766e',
+                        'secondary': '#facc15', /* Amber/Yellow (Gold theme) */
+                        'accent': '#4f46e5',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Import Poppins Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+        
+        /* Base styles */
+        body {
+            @apply bg-gray-50 text-gray-800;
+        }
+
+        /* Navbar Classes */
+        .navbar {
+            @apply fixed w-full top-0 z-50 bg-white shadow-xl transition-all duration-300;
+        }
+
+        .navbar-link {
+            @apply text-gray-700 font-medium text-base relative transition-colors duration-300 hover:text-primary px-3 py-1 rounded-lg hover:bg-gray-100;
+        }
+
+        .navbar-link.active {
+             @apply text-primary font-bold bg-primary-dark/10;
+        }
+        
+        .cta-button {
+            @apply py-2 px-6 bg-secondary text-gray-900 font-semibold rounded-full shadow-lg hover:bg-yellow-500 transition-colors duration-300 whitespace-nowrap;
+        }
+
+        /* Hero Banner */
+        #home .hero-banner {
+            @apply min-h-screen pt-24 flex items-center justify-center text-center bg-gray-900 text-white p-6;
+            background-image: linear-gradient(rgba(13, 148, 136, 0.7), rgba(0,0,0,0.6)), url('https://placehold.co/1920x1080/0d9488/ffffff?text=Renewable+Infrastructure');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Section Headings */
+        .page-heading {
+            @apply text-4xl md:text-5xl font-extrabold text-primary-dark mb-10 text-center border-b-4 border-secondary/50 inline-block px-4 pb-2;
+        }
+
+        /* Card styles */
+        .service-card {
+            @apply bg-white p-6 rounded-xl shadow-lg border-t-4 border-primary flex flex-col justify-between h-full hover:shadow-2xl transition-all duration-300;
+        }
+
+        /* Career Card styles */
+        .career-card {
+            @apply bg-white p-6 rounded-xl shadow-md border-l-4 border-secondary flex items-start space-x-4;
+        }
+        
+        /* Simple scroll-to-top button */
+        .scrolltotop {
+            @apply fixed bottom-5 right-5 w-12 h-12 bg-primary rounded-full shadow-lg flex items-center justify-center opacity-0 transition-opacity duration-300;
+        }
+        
+        /* Form status message */
+        .form-status {
+            @apply mt-4 p-3 text-sm rounded-lg text-center hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center py-3 px-4">
+            <a href="#home">
+                <img class="h-8 md:h-10" src="https://placehold.co/180x40/0d9488/ffffff?text=PATHRIVA" alt="Pathriva Projects Logo">
+            </a>
+            
+            <ul class="hidden md:flex space-x-1 items-center" id="desktop-menu">
+                <li><a href="#home" class="navbar-link">Home</a> </li>
+                <li><a href="#about" class="navbar-link">About Us</a></li>
+                <li><a href="#services" class="navbar-link">Services</a> </li>
+                <li><a href="#projects" class="navbar-link">Projects</a> </li>
+                <li><a href="#careers" class="navbar-link">Careers</a> </li>
+                <li><a href="#contact" class="navbar-link">Contact</a> </li>
+                <li><a href="#contact" class="cta-button ml-4">Enquire Now</a></li>
+            </ul>
+
+            <button class="md:hidden block p-2" id="mobile-menu-button" aria-label="Toggle navigation menu">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+
+        <div id="mobile-menu-dropdown" class="md:hidden hidden absolute top-16 left-0 w-full bg-white shadow-xl">
+            <ul class="flex flex-col items-center py-4 space-y-2">
+                <li><a href="#home" class="navbar-link w-full text-center block py-2">Home</a> </li>
+                <li><a href="#about" class="navbar-link w-full text-center block py-2">About Us</a></li>
+                <li><a href="#services" class="navbar-link w-full text-center block py-2">Services</a> </li>
+                <li><a href="#projects" class="navbar-link w-full text-center block py-2">Projects</a> </li>
+                <li><a href="#careers" class="navbar-link w-full text-center block py-2">Careers</a> </li>
+                <li><a href="#contact" class="navbar-link w-full text-center block py-2">Contact</a> </li>
+                <li class="pt-2"><a href="#contact" class="cta-button">Enquire Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="pt-16">
+        
+        <section id="home" data-route="home" class="page-content">
+            <div class="hero-banner">
+                <div class="max-w-5xl">
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-snug mb-6">
+                        Empowering Progress Through <span class="text-secondary">Renewable Energy</span> & Infrastructure Excellence
+                    </h1>
+                    <p class="text-xl md:text-2xl font-light">
+                        – Reliable EPC Partner for Solar, Civil & Electrical Projects
+                    </p>
+                    <a href="#contact" class="cta-button mt-8 inline-block">Contact Us Today</a>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto py-16 px-6">
+                <p class="max-w-5xl mx-auto text-xl text-gray-600 text-center mb-12">
+                    Pathriva Projects Pvt. Ltd. is a professionally managed **EPC and contracting company** specializing in **Renewable Energy, Civil, Electrical, and Telecom Infrastructure** projects. With proven execution capabilities and a results-driven team, we deliver end-to-end project solutions across India.
+                </p>
+
+                <h2 class="text-3xl font-extrabold text-gray-800 text-center mb-8">Key Services</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                    
+                    <div class="service-card">
+                        <div>
+                            <div class="text-3xl text-primary mb-3">⚡</div>
+                            <p class="text-xl font-bold text-primary-dark mb-2">Solar EPC & Ground Mount Systems</p>
+                            <p class="text-gray-600 text-sm">Expertise in Engineering, Procurement, and Construction of utility-scale solar projects.</p>
+                        </div>
+                        <a href="#services" class="card-button mt-4 text-primary hover:text-primary-dark font-semibold text-sm">Read More →</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div>
+                            <div class="text-3xl text-primary mb-3">🏗️</div>
+                            <p class="text-xl font-bold text-primary-dark mb-2">Civil & Structural Works</p>
+                            <p class="text-gray-600 text-sm">Foundation, structural design, and site preparation for industrial and infrastructure needs.</p>
+                        </div>
+                        <a href="#services" class="card-button mt-4 text-primary hover:text-primary-dark font-semibold text-sm">Read More →</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div>
+                            <div class="text-3xl text-primary mb-3">🔌</div>
+                            <p class="text-xl font-bold text-primary-dark mb-2">Electrical & Power Infrastructure</p>
+                            <p class="text-gray-600 text-sm">Substation development, transmission line setup, and power distribution systems.</p>
+                        </div>
+                        <a href="#services" class="card-button mt-4 text-primary hover:text-primary-dark font-semibold text-sm">Read More →</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div>
+                            <div class="text-3xl text-primary mb-3">📡</div>
+                            <p class="text-xl font-bold text-primary-dark mb-2">Telecom Infra Projects</p>
+                            <p class="text-gray-600 text-sm">Building and maintaining connectivity infrastructure including towers and optical fiber networks.</p>
+                        </div>
+                        <a href="#services" class="card-button mt-4 text-primary hover:text-primary-dark font-semibold text-sm">Read More →</a>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-extrabold text-gray-800 text-center mt-20 mb-8">Recent Works & Achievements</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+                    
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+                        <img src="https://placehold.co/600x350/0f766e/ffffff?text=Khavda+Solar+Park" alt="Khavda Solar Park" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg text-gray-800">10MW Khavda Solar Project</h3>
+                            <p class="text-sm text-gray-600 mt-1">Piling & Module Mounting Structure (MMS) Works - Gujarat.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+                        <img src="https://placehold.co/600x350/facc15/000000?text=Telecom+Infra" alt="Telecom Tower Infra" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg text-gray-800">Telecom Tower Infra - PAN India</h3>
+                            <p class="text-sm text-gray-600 mt-1">Design, foundation, and electrical works for connectivity networks.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+                        <img src="https://placehold.co/600x350/0d9488/ffffff?text=Civil+Site+Prep" alt="Civil Site Preparation" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg text-gray-800">Telangana Solar Site</h3>
+                            <p class="text-sm text-gray-600 mt-1">5 MW Civil & Electrical Balance of System (BoS) works.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-primary text-white p-10 rounded-xl mt-16 max-w-4xl mx-auto shadow-2xl text-center">
+                    <h3 class="text-2xl font-bold mb-4">Partner with us for reliable project execution and technical excellence.</h3>
+                    <a href="#contact" class="bg-secondary text-gray-900 font-bold py-3 px-8 rounded-full hover:bg-yellow-500 transition-colors duration-300 inline-block">Contact Us</a>
+                </div>
+                
+            </div>
+        </section>
+
+        <section id="about" data-route="about" class="page-content hidden bg-white">
+            <div class="max-w-5xl mx-auto py-12 px-6">
+                <h1 class="page-heading">About Pathriva Projects Pvt. Ltd.</h1>
+                
+                <p class="text-lg text-gray-600 mb-10">
+                    Incorporated in **2025**, Pathriva Projects Pvt. Ltd. is driven by a passion to contribute to India’s renewable and infrastructure growth. Our team brings deep experience in project execution, engineering, and management across multi-megawatt solar, civil, electrical, and telecom projects. We are dedicated to delivering sustainable and high-quality solutions.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-8 mb-12">
+                    <div class="p-5 border-l-4 border-primary bg-gray-50 rounded-lg shadow-sm">
+                        <h2 class="text-xl font-bold text-primary-dark mb-2">Vision</h2>
+                        <p class="text-sm text-gray-600">To be a leading engineering and project delivery company contributing to sustainable infrastructure development.</p>
+                    </div>
+                    <div class="p-5 border-l-4 border-secondary bg-gray-50 rounded-lg shadow-sm">
+                        <h2 class="text-xl font-bold text-primary-dark mb-2">Mission</h2>
+                        <p class="text-sm text-gray-600">Deliver projects with quality, safety, and speed through efficient planning, strong execution, and skilled manpower.</p>
+                    </div>
+                    <div class="p-5 border-l-4 border-primary bg-gray-50 rounded-lg shadow-sm">
+                        <h2 class="text-xl font-bold text-primary-dark mb-2">Core Values</h2>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Integrity & Commitment</li>
+                            <li>Safety & Quality</li>
+                            <li>Innovation & Continuous Improvement</li>
+                            <li>Long-term Partnerships</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-extrabold text-gray-800 text-center mt-16 mb-8">Leadership Team</h2>
+                <div class="grid md:grid-cols-2 gap-8 text-center">
+                    <div class="p-6 bg-gray-100 rounded-xl shadow-md">
+                        <img src="https://placehold.co/100x100/0d9488/ffffff?text=UR" alt="Mr. Upender Reddy" class="rounded-full mx-auto mb-4 border-4 border-primary">
+                        <h3 class="text-xl font-bold text-gray-800">Mr. Upender Reddy</h3>
+                        <p class="text-primary-dark font-medium">Director, Project Execution & Operations</p>
+                    </div>
+                    <div class="p-6 bg-gray-100 rounded-xl shadow-md">
+                        <img src="https://placehold.co/100x100/facc15/000000?text=KJ" alt="Ms. Kalpana Jyothi" class="rounded-full mx-auto mb-4 border-4 border-secondary">
+                        <h3 class="text-xl font-bold text-gray-800">Ms. Kalpana Jyothi</h3>
+                        <p class="text-primary-dark font-medium">Director, Administration & Finance</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-16 p-6 bg-primary/10 rounded-xl">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Certifications & Registration</h3>
+                    <p class="text-gray-600">Registered under Companies Act 2013 | Corporate Office: Hyderabad | Project Sites: PAN India</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="services" data-route="services" class="page-content hidden">
+            <div class="max-w-7xl mx-auto py-12 px-6">
+                <h1 class="page-heading">Our Expertise & Service Categories</h1>
+                
+                <div class="grid md:grid-cols-2 gap-12 mt-10">
+                    
+                    <div class="service-card border-primary">
+                        <div class="flex items-start mb-4">
+                            <div class="text-4xl text-primary mr-4">🌞</div>
+                            <h2 class="text-2xl font-bold text-primary-dark pt-1">Solar EPC & Ground Mount Systems</h2>
+                        </div>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 pl-2">
+                            <li>**MW-Scale Installation:** Expertise in utility-scale solar plant installation, including complex module mounting structures (MMS) and module fixing.</li>
+                            <li>**Electrical BoS:** Comprehensive DC cabling, inverter setup, and grid commissioning support.</li>
+                            <li>**Civil Works:** Specialized civil foundation, structure assembly, and detailed site preparation.</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card border-secondary">
+                        <div class="flex items-start mb-4">
+                            <div class="text-4xl text-secondary mr-4">🧱</div>
+                            <h2 class="text-2xl font-bold text-primary-dark pt-1">Civil & Structural Works</h2>
+                        </div>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 pl-2">
+                            <li>**Industrial Foundations:** Execution of high-precision foundations for industrial plants, warehouses, and equipment.</li>
+                            <li>**Control Rooms:** Construction of specialized control rooms and inverter pads adhering to strict technical specifications.</li>
+                            <li>**Site Infrastructure:** Road works, drainage systems, and peripheral fencing with a strong focus on quality and safety.</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card border-primary">
+                        <div class="flex items-start mb-4">
+                            <div class="text-4xl text-primary mr-4">⚡</div>
+                            <h2 class="text-2xl font-bold text-primary-dark pt-1">Electrical & Power Infrastructure</h2>
+                        </div>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 pl-2">
+                            <li>**Substation Installation:** Supply, erection, testing, and commissioning of switchgear, transformers, and protection systems.</li>
+                            <li>**Cabling & Earthing:** Execution of HT/LT power cabling and comprehensive earthing systems for safety and reliability.</li>
+                            <li>**Power Distribution:** Network design and installation for efficient power evacuation and distribution.</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card border-secondary">
+                        <div class="flex items-start mb-4">
+                            <div class="text-4xl text-secondary mr-4">📶</div>
+                            <h2 class="text-2xl font-bold text-primary-dark pt-1">Telecom Infra Projects</h2>
+                        </div>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 pl-2">
+                            <li>**Tower Foundation:** Design and execution of foundations for various types of telecom towers.</li>
+                            <li>**Shelters & Electrical:** Installation of equipment shelters and complete electrical setup for tower sites.</li>
+                            <li>**OFC Networks:** Support for Optical Fiber Cable (OFC) route planning and deployment.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="#contact" class="cta-button py-3 px-8 text-xl">Get a Quote for Your Project</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" data-route="projects" class="page-content hidden bg-white">
+            <div class="max-w-7xl mx-auto py-12 px-6">
+                <h1 class="page-heading">Our Experience in Action</h1>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+                    <div class="bg-gray-100 rounded-xl shadow-lg overflow-hidden border">
+                        <img src="https://placehold.co/600x400/0f766e/ffffff?text=Khavda+Solar+Site" alt="Khavda Solar Park" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl text-primary-dark">Khavda Solar Park – Gujarat</h3>
+                            <p class="text-sm text-gray-600 mt-1">**10 MW Piling & MMS Works:** Delivered structural foundation and mounting systems on time in challenging desert conditions.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 rounded-xl shadow-lg overflow-hidden border">
+                        <img src="https://placehold.co/600x400/0d9488/ffffff?text=Telangana+Site" alt="Telangana Solar Site" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl text-primary-dark">Telangana Solar Site</h3>
+                            <p class="text-sm text-gray-600 mt-1">**5 MW Civil & Electrical Works:** Full BoS execution, including trenching, cabling, and inverter station foundations.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 rounded-xl shadow-lg overflow-hidden border">
+                        <img src="https://placehold.co/600x400/facc15/000000?text=Telecom+Tower" alt="Telecom Tower Infra" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl text-primary-dark">Telecom Tower Infra – PAN India</h3>
+                            <p class="text-sm text-gray-600 mt-1">Successful completion of over 50 tower foundations and associated power works for major telecom operators.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 rounded-xl shadow-lg overflow-hidden border">
+                        <img src="https://placehold.co/600x400/4f46e5/ffffff?text=EHV+Substation" alt="EHV Substation" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl text-primary-dark">Ongoing Projects</h3>
+                            <p class="text-sm text-gray-600 mt-1">**EPC & O&M Support:** Providing long-term operational support for multiple solar assets across India.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 rounded-xl shadow-lg overflow-hidden border">
+                        <img src="https://placehold.co/600x400/94a3b8/ffffff?text=Warehouse+Foundation" alt="Warehouse Foundation" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl text-primary-dark">Industrial Civil Works</h3>
+                            <p class="text-sm text-gray-600 mt-1">Execution of large-scale industrial warehouse foundations and structural assembly.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="https://placehold.co/1920x1080/0d9488/ffffff?text=Download+Brochure" target="_blank" class="py-3 px-8 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors duration-300">Download Project Brochure (PDF)</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="careers" data-route="careers" class="page-content hidden">
+            <div class="max-w-4xl mx-auto py-12 px-6">
+                <h1 class="page-heading">Join Our Growing Team</h1>
+
+                <p class="text-xl text-gray-600 text-center mb-8">
+                    We are constantly looking for talented professionals and skilled workforce to join our mission of delivering clean energy and infrastructure solutions.
+                </p>
+                <p class="text-lg font-bold text-center text-primary-dark mb-10">
+                    Drop your resume at <span class="text-secondary">hr@pathrivaprojects.com</span> or fill out the form below.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Current Job Categories:</h2>
+                <div class="space-y-4 mb-10">
+                    <div class="career-card"><div class="text-2xl text-primary">⚙️</div><p class="font-medium">Site Engineers (Civil / Electrical)</p></div>
+                    <div class="career-card"><div class="text-2xl text-primary">💼</div><p class="font-medium">Project Managers</p></div>
+                    <div class="career-card"><div class="text-2xl text-primary">🛠️</div><p class="font-medium">Supervisors & Technicians</p></div>
+                    <div class="career-card"><div class="text-2xl text-primary">📊</div><p class="font-medium">Administrative Staff</p></div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-2xl border-t-4 border-secondary">
+                    <h2 class="text-2xl font-bold text-primary-dark mb-4 text-center">Apply Now</h2>
+                    <form id="careerForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+                        <input type="hidden" name="access_key" value="1b5d5c4d-a9da-4cb9-a5a3-9f195c1b43bb"> 
+                        <input type="hidden" name="subject" value="Career Application via Website">
+                        <input type="hidden" name="redirect" value="#careers"> 
+                        
+                        <div>
+                            <label for="c_name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="c_name" name="name" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                        </div>
+                        <div>
+                            <label for="c_email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="c_email" name="email" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                        </div>
+                        <div>
+                            <label for="c_phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                            <input type="text" id="c_phone" name="phone" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                        </div>
+                        <div>
+                            <label for="c_role" class="block text-sm font-medium text-gray-700">Applying For Role</label>
+                            <input type="text" id="c_role" name="role" placeholder="e.g., Site Engineer (Electrical)" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                        </div>
+                        <div>
+                            <label for="c_resume_link" class="block text-sm font-medium text-gray-700">Resume Link (or note that you will email it)</label>
+                            <input type="text" id="c_resume_link" name="resume_link" placeholder="Paste link or type 'Will email resume to HR'" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                        </div>
+
+                        <button type="submit" class="w-full mt-4 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark focus:ring-4 focus:ring-primary">Submit Application</button>
+                        <div id="careerFormStatus" class="form-status"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" data-route="contact" class="page-content hidden bg-white">
+            <div class="max-w-5xl mx-auto py-12 px-6">
+                <h1 class="page-heading">Contact Our Team</h1>
+                
+                <div class="grid md:grid-cols-2 gap-10">
+                    
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-lg border-t-4 border-primary">
+                        <h2 class="text-2xl font-bold text-primary-dark mb-4">Send Us a Message</h2>
+                        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+                            <input type="hidden" name="access_key" value="1b5d5c4d-a9da-4cb9-a5a3-9f195c1b43bb"> 
+                            <input type="hidden" name="subject" value="Website Inquiry - Project Lead">
+                            <input type="hidden" name="redirect" value="#contact"> 
+                            
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" id="name" name="name" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="email" name="email" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                                <input type="text" id="phone" name="phone" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700">Message / Project Inquiry</label>
+                                <textarea id="message" name="message" rows="4" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark focus:ring-4 focus:ring-primary">Submit Inquiry</button>
+                            <div id="contactFormStatus" class="form-status"></div>
+                        </form>
+                    </div>
+                    
+                    <div class="p-6 bg-secondary/20 rounded-xl shadow-lg border-t-4 border-secondary">
+                        <h2 class="text-2xl font-bold text-primary-dark mb-4">Corporate Office</h2>
+                        <p class="text-gray-700 mb-6">
+                            **Pathriva Projects Pvt. Ltd.**<br>
+                            Hyderabad, Telangana, India
+                        </p>
+                        
+                        <h3 class="font-bold text-lg text-gray-800">Email</h3>
+                        <p class="mb-4 text-primary font-medium">📧 info@pathrivaprojects.com</p>
+                        
+                        <h3 class="font-bold text-lg text-gray-800">Website</h3>
+                        <p class="mb-4 text-primary font-medium">🌐 www.pathrivaprojects.com</p>
+
+                        <h3 class="font-bold text-lg text-gray-800 mt-6 mb-2">Location Map</h3>
+                        <div class="w-full h-40 bg-gray-300 rounded-lg flex items-center justify-center text-sm text-gray-600 border border-gray-400">
+                           [Google Maps Embed Placeholder]
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-secondary mb-3">Quick Links</h3>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
+                    <li><a href="#projects" class="hover:text-primary transition-colors">Project Portfolio</a></li>
+                    <li><a href="#careers" class="hover:text-primary transition-colors">Careers</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-secondary mb-3">Our Services</h3>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="#services" class="hover:text-primary transition-colors">Solar EPC</a></li>
+                    <li><a href="#services" class="hover:text-primary transition-colors">Civil Works</a></li>
+                    <li><a href="#services" class="hover:text-primary transition-colors">Electrical Infra</a></li>
+                    <li><a href="#services" class="hover:text-primary transition-colors">Telecom Projects</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-secondary mb-3">Contact</h3>
+                <p class="text-sm">info@pathrivaprojects.com</p>
+                <p class="text-sm">Hyderabad, Telangana</p>
+            </div>
+             <div>
+                <h3 class="font-bold text-secondary mb-3">Follow Us</h3>
+                <div class="flex space-x-3 text-2xl">
+                    <a href="#" class="hover:text-primary transition-colors" aria-label="LinkedIn">in</a>
+                    <a href="#" class="hover:text-primary transition-colors" aria-label="Facebook">f</a>
+                    <a href="#" class="hover:text-primary transition-colors" aria-label="Twitter">t</a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-4 text-center text-sm text-gray-400">
+            <p>Copyright &copy; 2025 Pathriva Projects Pvt. Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <a href="#home" class="scrolltotop" aria-label="Scroll to top of page" id="scrollToTopBtn">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </a>
+
+    <script>
+        // --- JAVASCRIPT ROUTER AND UTILITIES ---
+
+        // 1. Client-Side Router: Shows/hides content based on URL hash
+        function router() {
+            const hash = window.location.hash.substring(1) || 'home'; // Default to 'home'
+            
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+
+            // Show the active page
+            const activePage = document.querySelector(`#${hash}`);
+            if (activePage) {
+                activePage.classList.remove('hidden');
+            } else {
+                 // Fallback to home if hash is invalid
+                document.querySelector('#home').classList.remove('hidden');
+                window.location.hash = 'home';
+            }
+            
+            // Update Navbar Active States
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${hash}`) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Ensure the mobile menu is closed after routing
+            closeMobileMenu();
+
+            // Scroll to the top of the main content area after route change
+            window.scrollTo({ top: 0, behavior: 'instant' }); 
+        }
+
+        // 2. Mobile Menu Logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuDropdown = document.getElementById('mobile-menu-dropdown');
+        
+        function closeMobileMenu() {
+            mobileMenuDropdown.classList.add('hidden');
+            // Change hamburger icon back to normal state if needed
+            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16m-7 6h7'); 
+        }
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isHidden = mobileMenuDropdown.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenuDropdown.classList.remove('hidden');
+                // Change icon to 'X' (or similar close state)
+                mobileMenuButton.querySelector('svg path').setAttribute('d', 'M6 18L18 6M6 6l12 12'); 
+            } else {
+                closeMobileMenu();
+            }
+        });
+        
+        // 3. Scroll To Top Button Visibility
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('opacity-100');
+            } else {
+                scrollToTopBtn.classList.remove('opacity-100');
+            }
+        });
+
+        // 4. Generic Form Status Handling
+        function handleFormSubmission(formId, statusId) {
+            const form = document.getElementById(formId);
+            const status = document.getElementById(statusId);
+
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    status.classList.remove('hidden');
+                    status.classList.remove('bg-red-100', 'text-red-800', 'bg-green-100', 'text-green-800');
+                    status.classList.add('bg-secondary/20', 'text-gray-700');
+                    status.textContent = 'Sending message...';
+
+                    const formData = new FormData(form);
+                    
+                    try {
+                        // Using Web3Forms for contact submission
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: { 'Accept': 'application/json' }
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok && result.success) {
+                            status.classList.remove('bg-secondary/20', 'text-gray-700');
+                            status.classList.add('bg-green-100', 'text-green-800');
+                            status.textContent = 'Message sent successfully! We will be in touch soon.';
+                            form.reset(); 
+                        } else {
+                            // Handle form errors, often returned by the service
+                            const errorMessage = result.message || 'Submission failed. Please try again.';
+                            status.classList.remove('bg-secondary/20', 'text-gray-700');
+                            status.classList.add('bg-red-100', 'text-red-800');
+                            status.textContent = `Error: ${errorMessage}`;
+                        }
+                    } catch (error) {
+                        console.error('Network or fetch error:', error);
+                        status.classList.remove('bg-secondary/20', 'text-gray-700');
+                        status.classList.add('bg-red-100', 'text-red-800');
+                        status.textContent = 'A network error occurred. Please check your connection.';
+                    }
+                });
+            }
+        }
+        
+        // 5. Initialize application
+        window.addEventListener('hashchange', router);
+        window.addEventListener('load', () => {
+            router();
+            // Initialize form handlers
+            handleFormSubmission('contactForm', 'contactFormStatus');
+            handleFormSubmission('careerForm', 'careerFormStatus');
+        });
+
+    </script>
+</body>
+
+</html>
