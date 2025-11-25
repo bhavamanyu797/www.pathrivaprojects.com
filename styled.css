@@ -332,7 +332,7 @@ section:nth-child(odd) {
     
     background: linear-gradient(to right, var(--color-primary-gold-dark), var(--color-primary-gold-light), var(--color-primary-gold-dark), var(--color-primary-gold-light)); 
     -webkit-background-clip: text; 
-    text-decoration: overline; 
+   
     background-clip: text;
     -webkit-text-fill-color: transparent; 
     background-size: 300% auto;
@@ -1239,6 +1239,19 @@ a{
 
 
 /* --- 12. Contact Section Styles (Form) --- */
+
+CSS
+
+/* In styled.css */
+#contact {
+    /* Current (Example: too large) */
+    /* padding: 100px 0; */ 
+    
+    /* FIX: Reduce the top and bottom padding significantly */
+    padding-top: 20px;   /* Or even smaller, like 10px */
+    padding-bottom: 20px; /* Or even smaller, like 10px */
+    /* Keep left/right padding small or auto */
+}
 .contact-section {
     background-color: var(--color-background-mid); 
     padding: 60px 20px;
@@ -1248,6 +1261,8 @@ a{
     justify-content: center;
     align-items: center;
     min-height: auto;
+    margin: 0;
+    font-family: montserrat;
 }
 
 .contact-title {
@@ -1270,15 +1285,16 @@ a{
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-
-    max-width: 650px; 
-    width: 100%;
+    font-family: montserrat;
+    max-width: 600px; 
+    width: 70%;
     margin: 0 auto;
-    padding: 40px; 
+    padding: 20px;  
+    
     border-radius: 12px; 
     
-    /* 🌟 Enhanced Glassmorphism for Form 🌟 */
-    background-color: rgba(255, 255, 255, 0.4); 
+   
+     background-color: rgba(255, 255, 255, 0.4); 
     backdrop-filter: blur(10px); 
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.6);
@@ -1294,7 +1310,7 @@ a{
 
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: left;
 }
 
@@ -1311,19 +1327,22 @@ a{
 .form-group input[type="tel"], /* Added for phone number field in HTML fix */
 .form-group textarea {
     width: 100%;
-    padding: 15px; 
+    
+    padding: 8px; 
     border: 1px solid #ccc;
-    border-radius: 6px; 
+    border-radius: 10px; 
     box-sizing: border-box; 
     font-size: 1em;
+    font-family: montserrat;
     transition: border-color 0.3s, box-shadow 0.3s;
     /* Make inputs opaque */
     background-color: #ffffff;
 }
 
 .form-group textarea {
-    min-height: 200px;
+    min-height: 170px;
     resize: none; 
+    /* font-family: monospace; */
 }
 
 .form-group input[type="text"]:focus,
