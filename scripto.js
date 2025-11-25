@@ -1,15 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs only after the entire HTML structure is loaded
+document.addEventListener('DOMContentLoaded', () => { 
 
     // =======================================================================
     // 🛑 SCROLL FIX: ENSURE PAGE ALWAYS OPENS AT THE TOP (0, 0)
-    // =======================================================================
     // This is the solution for the page jumping issue.
+    // =======================================================================
     if (window.location.hash) {
-        // Remove the fragment from the URL without triggering a full page reload or scroll jump
+        // 1. Remove the fragment from the URL without triggering a full page reload or scroll jump
         history.replaceState(null, null, ' ');
     }
     
-    // Explicitly set the scroll position to the top immediately.
+    // 2. Explicitly set the main browser window scroll position to the top immediately.
     window.scrollTo({
         top: 0,
         left: 0,
@@ -228,7 +228,6 @@ document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs
                 const viewportHeight = window.innerHeight;
 
                 // 4. Calculate the desired scroll position for centering:
-                // Scroll position = Element's top position - (Half of viewport height - Half of element height) - Nav Height
                 const scrollToPosition = elementTop - (viewportHeight / 2) + (elementHeight / 2) - navHeight;
 
                 window.scrollTo({
@@ -266,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs
         }
 
         // --- CORE NAVIGATION FUNCTIONS ---
-        // Stabilized getCurrentSlideIndex: Finds the slide whose center is closest to the carousel's view center.
         const getCurrentSlideIndex = () => {
             const centerLine = carousel.scrollLeft + (carousel.offsetWidth / 2);
             let closestIndex = 0;
@@ -274,10 +272,7 @@ document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs
 
             for (let i = 0; i < totalItems; i++) {
                 const slide = allSlides[i];
-                // Calculate the center of the current slide relative to the carousel's start
                 const slideCenter = slide.offsetLeft + (slide.offsetWidth / 2);
-                
-                // Calculate distance from the carousel's visible center to the slide's center
                 const distance = Math.abs(centerLine - slideCenter);
                 
                 if (distance < minDistance) {
@@ -294,12 +289,11 @@ document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs
         };
 
         const handleNavigation = (event, direction) => {
-            event.preventDefault(); // Stop browser default behavior
+            event.preventDefault(); 
 
             let currentIndex = getCurrentSlideIndex(); 
             let nextIndex = currentIndex;
             
-            // Determine next index based on direction
             if (direction === 'next') {
                 nextIndex = (currentIndex + 1) % totalItems;
             } else if (direction === 'prev') {
@@ -308,8 +302,6 @@ document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs
 
             // Move the scroll
             allSlides[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            
-            // Optimistically update the dot immediately (the scroll listener handles the final position)
             updateDots(nextIndex);
         };
 
@@ -327,22 +319,25 @@ document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs
         carousel.addEventListener('scroll', () => {
             window.clearTimeout(isScrolling);
             
-            // Wait briefly for the smooth scroll/snap to complete before updating the index.
             isScrolling = setTimeout(() => {
                 const visibleIndex = getCurrentSlideIndex();
                 updateDots(visibleIndex);
             }, 66); 
         });
 
-        // --- INITIALIZATION ---
+        // --- INITIALIZATION (FIXED) ---
         const initializeCarousel = () => {
-            // Use 'auto' behavior to instantly snap to the first slide on load
-            allSlides[0].scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
+            // FIX: This only sets the internal scroll of the carousel to 0, 
+            // preventing the main browser window from scrolling down.
+            if (carousel) {
+                 carousel.scrollLeft = 0; 
+            }
             updateDots(0); 
         }
         
         // Initial setup
         window.addEventListener('load', initializeCarousel);
+        // Use a timeout as a fallback in case the 'load' event is missed or delayed
         setTimeout(initializeCarousel, 500); 
         
         window.addEventListener('resize', () => {
