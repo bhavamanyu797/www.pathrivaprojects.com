@@ -1,23 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs only after the entire HTML structure is loaded
 
-    // =======================================================================
-    // 🛑 SCROLL FIX: ENSURE PAGE ALWAYS OPENS AT THE TOP (0, 0)
-    // =======================================================================
-    // This is the solution for the page jumping issue.
-    if (window.location.hash) {
-        // Remove the fragment from the URL without triggering a full page reload or scroll jump
-        history.replaceState(null, null, ' ');
-    }
-    
-    // Explicitly set the scroll position to the top immediately.
-    window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'instant' 
-    });
-    // =======================================================================
-
-
     // --- Core Element Selections ---
     const navbar = document.querySelector('.navbar');
     const sections = document.querySelectorAll('section');
@@ -353,3 +335,7 @@ document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs
         });
     }
 });
+
+
+
+// ======================================================================= // 🛑 SCROLL FIX: ENSURE PAGE ALWAYS OPENS AT THE TOP (0, 0) // ======================================================================= // This is the solution for the page jumping issue. if (window.location.hash) { // Remove the fragment from the URL without triggering a full page reload or scroll jump history.replaceState(null, null, ' '); } // Explicitly set the scroll position to the top immediately. window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); // ==============================
