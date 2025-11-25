@@ -196,6 +196,8 @@ document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs
         aboutSection && typewriterObserver.observe(aboutSection); // Starts observing the section if it exists
     }
 
+    
+
     // --- 6. Carousel Functionality (Infinite Loop & Animation) ---
     if (carousel) { // Checks if the carousel element exists
         const originalHicards = document.querySelectorAll('.carousel > .hicard:not(.is-clone)'); // Selects the original slides
@@ -337,3 +339,29 @@ document.addEventListener('DOMContentLoaded', () => { // Ensures the script runs
 
     }
 });
+
+// ----------------------------------------------------------------------
+    // --- Anchor Smooth Scrolling for Service Cards (Centered View) ---
+    // ----------------------------------------------------------------------
+    document.querySelectorAll('.service-detail-link').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                // Use scrollIntoView with 'center' block alignment for smooth scrolling
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center' // This centers the element in the viewport
+                });
+                
+                // NOTE: To prevent the fixed navbar from overlapping, you would typically 
+                // use CSS 'scroll-margin-top' on the target service sections, 
+                // set to the height of the fixed navbar.
+                // Example CSS: #solar-epc { scroll-margin-top: 80px; }
+            }
+        });
+    });
+    // --- End Anchor Smooth Scrolling ---
