@@ -1061,6 +1061,8 @@ section:nth-child(odd) {
 .service-category ul {
     list-style: none;
     padding-left: 0;
+    margin-left: 5%;
+}
 }
 
 .service-category ul li {
@@ -1564,3 +1566,4 @@ footer {
          text-align: left;
     }
 }
+
