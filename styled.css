@@ -43,9 +43,11 @@ a{
     color: black;
     text-align: center;
 }
-
 /* ---------------------------------------------------------------------- */
-/* 🏆 --- 1. Navigation Bar (.navbar) - ENHANCED GLASSMORPHISM --- 🏆 */
+/* 🏆 --- 1. Navigation Bar (.navbar) - STABILIZED --- 🏆 */
+/* ---------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------- */
+/* 🏆 --- 1. Navigation Bar (.navbar) - NO FLICKER VERSION --- 🏆 */
 /* ---------------------------------------------------------------------- */
 .navbar {
     display: flex;
@@ -55,37 +57,38 @@ a{
     width: 95%; 
     top: 15px; 
     left: 50%;
-    transform: translateX(-50%); 
     
+    /* 1. Hardware Acceleration to stop flickering */
+    transform: translateX(-50%) translateZ(0);
+    -webkit-transform: translateX(-50%) translateZ(0);
+
     font-family: var(--font-body);
     position: fixed;
-    
-    /* Initial State (Unscrolled)
-    /* Must be semi-transparent for the backdrop-filter to work */
-   /* background-color: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(8px); 
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.4); */
     border-radius: 20px; 
-    
     z-index: 100; 
     color: black;
-    
-    transition: box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                background-color 0.5s ease, 
-                backdrop-filter 0.5s ease, 
-                border 0.5s ease;
-    will-change: transform, background, box-shadow;
+
+    /* 2. CRITICAL: Define STARTING state explicitly so it doesn't vanish */
+    background-color: rgba(255, 255, 255, 0); /* Start fully transparent */
+    backdrop-filter: blur(0px);               /* Start with NO blur */
+    -webkit-backdrop-filter: blur(0px);
+    border: 1px solid transparent;            /* Start with transparent border */
+
+    /* 3. Transition setup */
+    transition: background-color 0.4s ease, 
+                box-shadow 0.4s ease, 
+                border-color 0.4s ease, 
+                backdrop-filter 0.4s ease;
 }
 
-/* JS Class: Activated when scrolling starts (DEEPER GLASS - DESKTOP/GENERAL) */
+/* Scrolled State */
 .navbar.scrolled {
-    /* Stronger Blur and Shadow on Scroll */
+    /* Target State */
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); 
-    background-color: rgba(255, 255, 255, 0.35); /* Increased opacity */
+    background-color: rgba(255, 255, 255, 0.65); 
+    border-color: rgba(255, 255, 255, 0.6); 
     backdrop-filter: blur(16px); 
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.6); 
 }
 
 .navbar-container {
@@ -1061,8 +1064,7 @@ section:nth-child(odd) {
 .service-category ul {
     list-style: none;
     padding-left: 0;
-    margin-left: 5%;
-}
+        margin-left: 5%;
 }
 
 .service-category ul li {
@@ -1566,4 +1568,3 @@ footer {
          text-align: left;
     }
 }
-
