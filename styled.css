@@ -13,7 +13,7 @@
     
     /* Font Families */
     --font-heading: 'Momo Trust Display', serif;
-    --font-body: 'Questrial', sans-serif;
+    --font-body: 'Questrial', sans-serif, 'Montserrat', sans-serif;
 }
 
 * {
@@ -66,8 +66,9 @@ a{
     position: fixed;
     border-radius: 20px; 
     z-index: 100; 
-    color: black;
 
+    color: white;
+    
     /* 2. CRITICAL: Define STARTING state explicitly so it doesn't vanish */
     background-color: rgba(255, 255, 255, 0); /* Start fully transparent */
     backdrop-filter: blur(0px);               /* Start with NO blur */
@@ -98,7 +99,7 @@ a{
     width: 100%;
     padding: 0 2rem;
     max-width: 1600px;
-    color: black;
+    color: white;
     font-size: 20px;
 }
 
@@ -142,6 +143,23 @@ a{
     border-color: rgba(255, 255, 255, 0.6); 
     backdrop-filter: blur(16px); 
     -webkit-backdrop-filter: blur(16px);
+}
+/* Navbar default color (all other sections) */
+.navbar a {
+    color: #1a1a1a; /* dark */
+}
+
+/* When on home page, make nav links white */
+body.home-active .navbar a {
+    color: #ffffff !important;
+}
+
+/* Hover color on home page */
+body.home-active .navbar a:hover {
+    color: #333 !important;
+}
+body.home-active .navbar a.active {
+    color: #333 !important;
 }
 
 .navbar-container .navbar-menu li a::before {
@@ -309,108 +327,135 @@ section {
     padding: 80px 0;
     flex-direction: column;
 }
-/* 
-section:nth-child(odd) {
-    /* min-height: 120vh; 
-} */
+ /* --------------------------------------------------
+   HOMEPAGE REDESIGN – CLEAN MODERN HERO
+-------------------------------------------------- */
 
 #home {
-    background-color: #555; 
-    background-position: center;
-    text-align: center;
-    color: #EBEBF2;
-    height: 30vh;
-    padding-top: 100px;
     height: 100vh;
-    position: relative; 
-    z-index: 1; 
-     background-image: url(project8.png); 
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;  
-    
-}
-.box {
-    background-color: #e7e7e7; 
-    background-position: center;
-    text-align: center;
-    color: #EBEBF2;
-    height: 40%;
-    padding-top: 100px;
-    height: 80vh;
-    position: relative; 
-    z-index: 1; 
-    border-radius: 20px;
-    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     overflow: hidden;
+
+    background: url("project8.png") center/cover no-repeat;
 }
 
-/* Background Image Overlay for Opacity */
-.box::before {
-    content: '';
+/* Dark gradient overlay for readability */
+.home-overlay {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1; 
-    outline: 20px solid rgba(227, 208, 165, 0.648);
-    border: 2px solid rgba(227, 208, 165, 0.648);
-    background-image: url(project8.png); 
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;  
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
-    
-    opacity: 0.9; 
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.40)
+    );
+    z-index: 1;
 }
 
-.box > * { 
-    position: relative; 
+/* Center content */
+.home-content {
+    position: relative;
     z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    padding: 2rem;
+    color: #ffffff;
 }
 
-/* Home Section Text (Animated Gradient & Entry) - VISIBILITY FIX APPLIED */
-#home .text {
-    font-size: 30px;
-    font-weight: bold;
-    padding: 0 2rem;
-    font-family: var(--font-heading);
-    letter-spacing: 2px;
-    
-    /* SCROLL-TO-ANIMATE INITIAL STATE */
-    transform: translateY(-50px);
+/* Main title */
+.home-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+}
+
+.home-title .highlight {
+    color: #00b7ff;
+    text-shadow: 0 0 12px rgba(0, 183, 255, 0.6);
+}
+
+/* Subtitle */
+.home-subtitle {
+    font-size: 1.3rem;
+    font-weight: 300;
+    max-width: 650px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+/* CTA Button */
+.home-cta {
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    font-size: 1.1rem;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.home-cta:hover {
+    background-color: #00b7ff;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 183, 255, 0.45);
+}
+
+/* --------------------------------------------------
+   SLIDE-IN ANIMATION
+-------------------------------------------------- */
+
+.slide-in {
     opacity: 0;
-    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), opacity 1.2s ease-out;
-    
-    animation: gradient-animate 3s ease-in-out infinite alternate; 
-    
-    background: linear-gradient(to right, #fff,#e7e7e7,#F5F5F5/*, #4169E1*/); 
-    -webkit-background-clip: text; 
-     /* background-image: url(project8.png); 
-    background-size: cover;
-    background-position: center; */
-    background-attachment: fixed; 
-    background-clip: text;
-    -webkit-text-fill-color: transparent; 
-    background-size: 300% auto;
-    background-position: left center;
-    
-    will-change: background-position, transform, opacity;
-    
-    color: var(--color-primary-gold-light); 
+    transform: translateY(40px);
+    animation: slideIn 1.2s ease-out forwards;
 }
 
-/* JS adds this class immediately on load */
-#home .text.loaded {
-    transform: translateY(0);
-    opacity: 1;
+.slide-in:nth-child(2) {
+    animation-delay: 0.25s;
+}
+.slide-in:nth-child(3) {
+    animation-delay: 0.5s;
 }
 
-@keyframes gradient-animate {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+/* --------------------------------------------------
+   RESPONSIVE DESIGN
+-------------------------------------------------- */
+
+@media (max-width: 768px) {
+    .home-title {
+        font-size: 2.5rem;
+    }
+    .home-subtitle {
+        font-size: 1.1rem;
+    }
+    .home-cta {
+        padding: 0.8rem 1.8rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-title {
+        font-size: 2rem;
+    }
+    .home-subtitle {
+        font-size: 1rem;
+    }
+}
 
 /* --- 4. About Snapshot Section (Scroll-to-Animate Cards) --- */
 #about-snapshot {
