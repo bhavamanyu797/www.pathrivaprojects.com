@@ -439,3 +439,16 @@ document.querySelectorAll('.service-detail-link').forEach(anchor => {
     });
 });
 // --- End Anchor Smooth Scrolling ---
+   
+const homeSection = document.querySelector("#home");
+const body = document.body;
+
+window.addEventListener("scroll", () => {
+    const rect = homeSection.getBoundingClientRect();
+
+    if (rect.bottom <= 80) {
+        body.classList.remove("home-active");
+    } else {
+        body.classList.add("home-active");
+    }
+});
