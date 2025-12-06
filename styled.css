@@ -213,7 +213,7 @@ body.home-active .navbar a.active {
 /* ---------------------------------------------------------------------- */
 /* --- 2. Media Queries (Responsiveness) --- */
 /* ---------------------------------------------------------------------- */
-@media (max-width: 800px) {
+@media (max-width: 1096px) {
     .navbar {
         width: 100%; 
         top: 0;
@@ -1646,3 +1646,4 @@ footer {
          text-align: left;
     }
 }
+
